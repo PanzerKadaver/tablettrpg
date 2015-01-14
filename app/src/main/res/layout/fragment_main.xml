@@ -15,5 +15,16 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:checked="false"
-        android:onClick="onBootSwitch" />
+        android:onClick="onBootSwitch"
+        android:layout_alignRight="@+id/switch1"
+        android:layout_alignEnd="@+id/switch1" />
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/client_switch"
+        android:id="@+id/switch1"
+        android:layout_below="@+id/server_switch"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

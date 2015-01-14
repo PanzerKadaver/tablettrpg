@@ -1,18 +1,37 @@
 package ihatereboot.tablettrpg;
 
 import android.bluetooth.BluetoothAdapter;
+import android.content.Intent;
+
+import static android.support.v4.app.ActivityCompat.startActivityForResult;
+
 
 /**
  * Created by aubert_n on 14/01/2015.
  */
-public class BluetoothManager {
+public class BluetoothManager
+{
+    private final static int REQUEST_ENABLE_BT = 747;
 
-    public static void BluetoothActivate() {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+
+    }
+
+    public static void BluetoothActivate()
+    {
         BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        if (mBluetoothAdapter == null) {
+        if (mBluetoothAdapter == null)
             System.out.println("device does not support bluetooth");
-        } else
+        else
+            System.out.println("bluetooth supported");
+        if (mBluetoothAdapter.isEnabled())
             System.out.println("bluetooth enabled");
+        else
+        {
+            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(MainActivity.activity, enableBtIntent, REQUEST_ENABLE_BT, null);
+        }
     }
 
 }
