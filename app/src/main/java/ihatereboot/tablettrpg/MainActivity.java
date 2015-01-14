@@ -179,6 +179,7 @@ public class MainActivity extends ActionBarActivity
             Toast.makeText(getApplicationContext(), "Server enabled", Toast.LENGTH_SHORT).show();
             s.setEnabled(false);
             callback.start();
+            BluetoothManager.BluetoothActivate();
         }
         else
         {
