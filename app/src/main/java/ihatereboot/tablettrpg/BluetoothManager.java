@@ -29,6 +29,7 @@ public class BluetoothManager
             System.out.println("bluetooth enabled");
         else
         {
+            //bob
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(MainActivity.activity, enableBtIntent, REQUEST_ENABLE_BT, null);
         }
