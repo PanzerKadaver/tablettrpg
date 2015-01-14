@@ -16,7 +16,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
+import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity
@@ -99,9 +101,11 @@ public class MainActivity extends ActionBarActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
+        /**
         if (id == R.id.action_settings) {
             return true;
         }
+         **/
 
         return super.onOptionsItemSelected(item);
     }
@@ -146,4 +150,41 @@ public class MainActivity extends ActionBarActivity
         }
     }
 
+    public void onBootSwitch(View v)
+    {
+        final Switch s = ((Switch) v);
+        boolean isOn = s.isChecked();
+        Thread callback = new Thread(new Runnable() {
+            private Switch param = s;
+            @Override
+            public void run() {
+                try
+                {
+                    Thread.currentThread().sleep(2500);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            param.setEnabled(true);
+                        }
+                    });
+                } catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        if (isOn)
+        {
+            Toast.makeText(getApplicationContext(), "Server enabled", Toast.LENGTH_SHORT).show();
+            s.setEnabled(false);
+            callback.start();
+        }
+        else
+        {
+            Toast.makeText(getApplicationContext(), "Server disabled", Toast.LENGTH_SHORT).show();
+            s.setEnabled(false);
+            callback.start();
+        }
+    }
 }
