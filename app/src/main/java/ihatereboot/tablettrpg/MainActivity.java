@@ -19,10 +19,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.content.Intent;
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+
+    public final static int REQUEST_ENABLE_BT = 747;
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -182,13 +184,28 @@ public class MainActivity extends ActionBarActivity
             Toast.makeText(getApplicationContext(), "Server enabled", Toast.LENGTH_SHORT).show();
             s.setEnabled(false);
             callback.start();
-            BluetoothManager.BluetoothActivate();
+            if (!BluetoothManager.BluetoothActivate())
+            {
+                Toast.makeText(getApplicationContext(), "App can't start", Toast.LENGTH_SHORT).show();
+                System.out.println("app quit");
+                finish();
+            }
+
         }
         else
         {
             Toast.makeText(getApplicationContext(), "Server disabled", Toast.LENGTH_SHORT).show();
             s.setEnabled(false);
             callback.start();
+        }
+    }
+    protected void onActivityResult (int requestCode, int resultCode, Intent data)
+    {
+        switch (requestCode) {
+            case 747:
+                System.out.println("request OK 747"); // debug
+                ActivityManager.ResultCodeActivity(resultCode);
+                break;
         }
     }
 }
