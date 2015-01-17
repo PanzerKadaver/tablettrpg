@@ -48,6 +48,7 @@ public class BluetoothManager
     * Return 1 if bluetooth already ON
     * Return 0 if trying to activate bluetooth
      */
+
     public static int BluetoothActivate()
     {
         if (!isBluetoothSupported())
@@ -61,6 +62,9 @@ public class BluetoothManager
         return (0);
     }
 
+    /*
+    * Enable discoverability
+     */
     public static void BluetoothDiscoverableOn()
     {
         Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
@@ -68,6 +72,9 @@ public class BluetoothManager
         startActivityForResult(MainActivity.activity, discoverableIntent, MainActivity.REQUEST_ENABLE_DSCV, null);
     }
 
+    /*
+    * Disable Bluetooth
+     */
     public static void BluetoothDeactivate()
     {
         BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();

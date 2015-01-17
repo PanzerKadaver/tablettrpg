@@ -210,19 +210,24 @@ public class MainActivity extends ActionBarActivity
         }
     }
 
+    /*
+    * User agreed bluetooth activation
+     */
     public static void onBootActivationYes()
     {
         if (BluetoothManager.isBluetoothEnabled())
         {
             BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
             mBluetoothAdapter.setName("SERVER pre-anticipated-early-access-alpha");
-            System.out.println("App UUID =="+Utils.getUUID().toString());
             BluetoothManager.BluetoothDiscoverableOn();
         }
         else
             System.out.println("Bluetooth Activation Failure");
     }
 
+    /*
+    * Answer disagreed/canceled bluetooth activation
+     */
     public static void onBootActivationNo()
     {
 
