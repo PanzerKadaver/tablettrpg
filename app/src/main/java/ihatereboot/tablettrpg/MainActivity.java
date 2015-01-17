@@ -184,13 +184,17 @@ public class MainActivity extends ActionBarActivity
             Toast.makeText(getApplicationContext(), "Server enabled", Toast.LENGTH_SHORT).show();
             s.setEnabled(false);
             callback.start();
-            if (!BluetoothManager.BluetoothActivate())
+            int ret = -1;
+            if ((ret = BluetoothManager.BluetoothActivate()) == -1)
             {
                 Toast.makeText(getApplicationContext(), "App can't start", Toast.LENGTH_SHORT).show();
                 System.out.println("app quit");
                 finish();
             }
-
+            if (ret == 0)
+            {
+                // Bluetooth is being activated, check if it worked
+            }
         }
         else
         {
