@@ -1,6 +1,8 @@
 package ihatereboot.tablettrpg;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.os.SystemClock;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -16,10 +18,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.content.Intent;
+
+import java.util.logging.Handler;
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -179,30 +185,45 @@ public class MainActivity extends ActionBarActivity
             }
         });
 
+
         if (isOn)
         {
-            Toast.makeText(getApplicationContext(), "Server enabled", Toast.LENGTH_SHORT).show();
+            int ret = -1;
+            Toast.makeText(getApplicationContext(), "Server enabled, bluetooth ON", Toast.LENGTH_SHORT).show();
             s.setEnabled(false);
             callback.start();
-            int ret = -1;
             if ((ret = BluetoothManager.BluetoothActivate()) == -1)
             {
                 Toast.makeText(getApplicationContext(), "App can't start", Toast.LENGTH_SHORT).show();
                 System.out.println("app quit");
                 finish();
             }
-            if (ret == 0)
-            {
-                // Bluetooth is being activated, check if it worked
-            }
         }
         else
         {
-            Toast.makeText(getApplicationContext(), "Server disabled", Toast.LENGTH_SHORT).show();
+            BluetoothManager.BluetoothDeactivate();
+            Toast.makeText(getApplicationContext(), "Server disabled, bluetooth OFF", Toast.LENGTH_SHORT).show();
             s.setEnabled(false);
             callback.start();
         }
     }
+
+    public static void onBootActivationYes()
+    {
+        if (BluetoothManager.isBluetoothEnabled())
+        {
+            BluetoothManager.BluetoothDiscoverableOn();
+        }
+        else
+            System.out.println("Bluetooth Activation Failure");
+    }
+
+    public static void onBootActivationNo()
+    {
+
+        System.out.println("User disagreed bluetooth activation");
+    }
+
     protected void onActivityResult (int requestCode, int resultCode, Intent data)
     {
         switch (requestCode) {
