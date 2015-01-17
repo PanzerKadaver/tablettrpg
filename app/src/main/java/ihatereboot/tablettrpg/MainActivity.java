@@ -2,6 +2,7 @@ package ihatereboot.tablettrpg;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.bluetooth.BluetoothAdapter;
 import android.os.SystemClock;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
@@ -31,6 +32,7 @@ public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     public final static int REQUEST_ENABLE_BT = 747;
+    public final static int REQUEST_ENABLE_DSCV = 1337;
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -184,8 +186,6 @@ public class MainActivity extends ActionBarActivity
                 }
             }
         });
-
-
         if (isOn)
         {
             int ret = -1;
@@ -198,6 +198,8 @@ public class MainActivity extends ActionBarActivity
                 System.out.println("app quit");
                 finish();
             }
+            else if (ret == 1)
+                BluetoothManager.BluetoothDiscoverableOn();
         }
         else
         {
@@ -212,6 +214,9 @@ public class MainActivity extends ActionBarActivity
     {
         if (BluetoothManager.isBluetoothEnabled())
         {
+            BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+            mBluetoothAdapter.setName("SERVER pre-anticipated-early-access-alpha");
+            System.out.println("App UUID =="+Utils.getUUID().toString());
             BluetoothManager.BluetoothDiscoverableOn();
         }
         else
@@ -230,6 +235,10 @@ public class MainActivity extends ActionBarActivity
             case 747:
                 System.out.println("request OK 747"); // debug
                 ActivityManager.ResultCodeActivity(resultCode);
+                break;
+            case 1337:
+                System.out.println("request OK 1337"); // debug
+              //  ActivityManager.ResultCodeActivity(resultCode);
                 break;
         }
     }

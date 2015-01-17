@@ -63,10 +63,9 @@ public class BluetoothManager
 
     public static void BluetoothDiscoverableOn()
     {
-        Intent discoverableIntent = new
-        Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+        Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
         discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 180);
-        startActivityForResult(MainActivity.activity, discoverableIntent, MainActivity.REQUEST_ENABLE_BT, null);
+        startActivityForResult(MainActivity.activity, discoverableIntent, MainActivity.REQUEST_ENABLE_DSCV, null);
     }
 
     public static void BluetoothDeactivate()
