@@ -16,7 +16,7 @@ public class ActivityManager {
             case MainActivity.RESULT_OK:
                 // bluetooth now enable
                 System.out.println("RESULT OK");
-                onBootActivationYes();
+                MainActivity.onBootActivationYes();
                 break;
             case MainActivity.RESULT_CANCELED:
                 // user said "no" to bluetooth activation or app crashed

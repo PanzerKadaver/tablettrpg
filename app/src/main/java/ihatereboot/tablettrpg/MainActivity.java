@@ -199,7 +199,7 @@ public class MainActivity extends ActionBarActivity
                 finish();
             }
             else if (ret == 1)
-                BluetoothManager.BluetoothDiscoverableOn();
+               onBootActivationYes();
         }
         else
         {
@@ -220,6 +220,7 @@ public class MainActivity extends ActionBarActivity
             BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
             mBluetoothAdapter.setName("SERVER pre-anticipated-early-access-alpha");
             BluetoothManager.BluetoothDiscoverableOn();
+
         }
         else
             System.out.println("Bluetooth Activation Failure");
@@ -243,7 +244,7 @@ public class MainActivity extends ActionBarActivity
                 break;
             case 1337:
                 System.out.println("request OK 1337"); // debug
-              //  ActivityManager.ResultCodeActivity(resultCode);
+                ActivityManager.ResultCodeActivity(resultCode);
                 break;
         }
     }

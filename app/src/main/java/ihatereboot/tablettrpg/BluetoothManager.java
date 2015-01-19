@@ -80,7 +80,7 @@ public class BluetoothManager
         BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (mBluetoothAdapter.isEnabled()) {
             mBluetoothAdapter.disable();
-            System.out.println("bluetooth disabled");
+            System.out.println("bluetooth disabled by user");
         }
     }
 }

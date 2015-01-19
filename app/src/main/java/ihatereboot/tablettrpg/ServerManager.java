@@ -13,16 +13,16 @@ import java.util.UUID;
  */
 public class ServerManager extends Thread {
 
-    private BluetoothServerSocket sSock;
-    private BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();;
-    UUID MY_UUID = UUID.fromString("test");
+    private static BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();;
+    private static UUID MY_UUID = UUID.randomUUID();
 
-    public void initialize() // AcceptThread()
+    public static BluetoothServerSocket initialize() // AcceptThread()
     {
+        BluetoothServerSocket sSock;
         BluetoothServerSocket tmp = null;
         try
         {
-            mBluetoothAdapter.listenUsingRfcommWithServiceRecord("TTRPG", MY_UUID);
+            tmp = mBluetoothAdapter.listenUsingRfcommWithServiceRecord("TTRPG", MY_UUID);
         }
         catch (IOException e)
         {
@@ -30,12 +30,44 @@ public class ServerManager extends Thread {
             e.printStackTrace();
         }
         sSock = tmp;
+        return (sSock);
     }
 
-    public void run()
+    public static void runServer()
     {
+        System.out.println("ServerManager.runServer() started . . ."); // debug
+        System.out.println("Initializing ...");
+        BluetoothServerSocket sSock = initialize();
+        System.out.println("Successfuly initialized !");
+
         BluetoothSocket csock = null;
-        while (true) // listening till exception returned or socket is returned
+
+
+
+
+
+        /*
+        String mydeviceaddress = mBluetoothAdapter.getAddress();
+        String mydevicename = mBluetoothAdapter.getName();
+        String status = mydevicename + " : " + mydeviceaddress;
+        System.out.println("STATUS == ["+status+"]");
+        */
+
+        /*
+        Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
+        // If there are paired devices
+        if (pairedDevices.size() > 0)
+        {
+            // Loop through paired devices
+            for (BluetoothDevice device : pairedDevices)
+            {
+                // Add the name and address to an array adapter to show in a ListView
+                System.out.println("bonded devices : ["+device.getName()+"::"+device.getAddress());
+            }
+        }
+        */
+
+        /*while (true) // listening till exception returned or socket is returned
         {
             try
             {
@@ -46,7 +78,7 @@ public class ServerManager extends Thread {
                 System.out.println("Caught IOEXCEPTION in WHILE -> BREAK == "+e);
                 break;
             }
-            if (csock != null) // if a connection is accepeted
+            if (csock != null) // if a connection is accepted
             {
                 manageNewClient(csock);
                 try
@@ -61,11 +93,11 @@ public class ServerManager extends Thread {
                 break;
             }
         }
+        SystemClock.sleep(2000);*/
     }
 
-    public void manageNewClient(BluetoothSocket csock)
+    public static void manageNewClient(BluetoothSocket csock)
     {
-        System.out.println("SERVER UUID == ["+MY_UUID.toString()+"]");
         System.out.println("OU YEAH !");
     }
 }
